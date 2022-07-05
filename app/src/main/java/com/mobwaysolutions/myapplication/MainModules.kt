@@ -7,13 +7,19 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-var mainModules = module {
-
-    single { ApplicationDatabase.getDatabase(androidApplication()) }
-
+val mainModules = module {
     single { ProdutoRepository(get()) }
+}
+
+val databaseModules = module {
+    single { ApplicationDatabase.getDatabase(androidApplication()) }
+    single { get<ApplicationDatabase>().getProdutoDao() }
+}
+
+val viewModelModules = module {
 
     viewModel { MainViewModel(get()) }
+
 }
 
 
